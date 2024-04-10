@@ -12,6 +12,14 @@ void glfwWindowSizeCallback(GLFWwindow* pWindow, int width, int height)
 	glViewport(0, 0, g_windowSizeX, g_windowSizeY);
 }
 
+void glfwKeyCallback(GLFWwindow* pWindow, int key, int scancode, int action, int mode)
+{
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(pWindow, GL_TRUE);
+	}
+}
+
 int main(void)
 {
 
@@ -22,8 +30,8 @@ int main(void)
 		return -1;
 	}
 
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
@@ -34,6 +42,9 @@ int main(void)
 		glfwTerminate();
 		return -1;
 	}
+
+	glfwSetWindowSizeCallback(pWindow, glfwWindowSizeCallback);
+	glfwSetKeyCallback(pWindow, glfwKeyCallback);
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(pWindow);
